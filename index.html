@@ -13,22 +13,25 @@
 
 
 <body>
-       
-    <!-- Add the dark mode button -->
-    <button id="button-dark-mode" class="toggle-dark-mode">Dark mode</button> 
+    <header id="admin">
+        <!-- Add the dark mode button -->
+        <button id="button-dark-mode" class="toggle-dark-mode">Dark mode</button>
+        <!-- Button to switch between radians and degrees -->
+        <button id="button-degrees-radians" class="toggle-dark-mode">Degrees</button>
+    </header>
 
     <!-- Create the calculator grid class -->
-    <div class="calculator-grid">
-    <!-- Create a div class called output that can be styled independently  -->
-        <div class="output">
-            <div data-previous-operand class="previous-number">
+    <section class="calculator-grid">
+    <!-- Create a section class called output that can be styled independently  -->
+        <section class="output">
+            <section data-previous-operand class="previous-number">
                 123+
-            </div>
-            <div data-current-operand class="current-number">
+            </section>
+            <section data-current-operand class="current-number">
                 456
-            </div>
-        </div>
-
+            </section>
+        </section>
+    
         <button data-all-clear style="grid-column: span 2;">AC</button>
         <button data-delete>DEL</button>
         <button data-operation>÷</button>
@@ -63,8 +66,7 @@
         <button data-number>π</button>
         <button data-operation>ln</button>
         <button data-equals style="grid-column: span 3;">=</button>
-        
-    </div>
+    </section>
     
 <!-- <button>Dark mode</button> -->
 

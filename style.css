@@ -13,8 +13,8 @@
 }
 /* Light mode will be the default and all relevant colour variables are defined under ":root" */
 :root {
-    --background: linear-gradient(to right, rgb(133, 130, 130), rgb(81, 88, 96));
-    --clr-button: rgb(230, 230, 230);
+    --background: linear-gradient(to right, rgb(196, 195, 195), rgb(81, 88, 96));
+    --clr-button: rgb(255, 255, 255);
     --clr-button-hover: rgba(223, 219, 219, 0.5);
     --clr-button-border: 1px solid rgb(95, 92, 92);
     --display-background: rgba(230, 230, 230, 0.65);
@@ -26,7 +26,7 @@
 /* Define dark mode colours here */
 .darkmode {
     --background: linear-gradient(to right, rgb(0, 0, 0), rgb(77, 77, 77));
-    --clr-button: rgb(101, 101, 101);
+    --clr-button: rgb(174, 174, 174);
     --clr-button-hover: rgba(120, 120, 120, 0.5);
     --clr-button-border: 1px solid rgb(255, 255, 255);
     --display-background: rgba(86, 86, 86, 0.65);
@@ -40,7 +40,7 @@ body{
     padding: 0;
     margin: 0;
     background: var(--background);
-
+    aspect-ratio: 1/1;
 }
 
 .toggle-dark-mode{
@@ -55,13 +55,16 @@ body{
     display: grid;
     justify-content: center;
     align-content: center;
-    min-height: 100vh;
-    grid-template-columns: repeat(5, 100px);
-    grid-template-rows: minmax(120px, auto) repeat(6, 100px);
-}
+    /* height: 70%;
+    width: 70%; */
+     min-height: 100vh;
+    grid-template-columns: repeat(5, 10%);
+    grid-template-rows: minmax(5%, 15%) repeat(6, 10%);
+} 
 
 
-.calculator-grid > button{
+
+.calculator-grid > button {
 cursor: pointer;
 font-size: 2rem;
 border: var(--clr-button-border);
@@ -69,7 +72,7 @@ border: var(--clr-button-border);
 background-color: var(--clr-button);
 }
 
-.calculator-grid > button:hover{
+.calculatorx-grid > button:hover{
     background-color: var(--clr-button-hover)
     }
 
@@ -78,7 +81,9 @@ background-color: var(--clr-button);
     grid-column: 1/-1;
     background-color: var(--display-background);
     color: darkgoldenrod;
+    /* Use flex to dynamically set the width of the output display */
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-end;
     justify-content: space-around;
     flex-direction: column;
@@ -96,53 +101,3 @@ background-color: var(--clr-button);
 .output .current-number{
     color: var(--clr-current-number-display);
 }
-
-/* .container is a class, so this dictates the style for the whole class
-.container{ 
-    width: 100%;
-    height: 100vh;
-    background: #363f4d;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.calculator {
-    background: #694719;
-    padding: 20px;
-    border-radius: 10px;
-
-}
-
-.btn-group{
-    background-color: darkblue; /* Green background */
-   /* border: 1px darkcyan; /* Green border */
-    /* color: red; /* White text */
-   /* padding: 10px 24px; /* Some padding */
-    /* cursor: pointer; Pointer/hand icon */
-    /* float: left; Float the buttons side by side */
-/* } */
-
-/* Specify the style of input buttons inside a .calculator div, inside a form */
-/*.calculator form input {
-    border: 0;
-    outline: 0;
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-    box-shadow: -8px -8px 15px rgba(255, 255, 255, );
-    background-color: darkorange;
-}
-
-/* Adjust the display field */
-/*form .display {
-    display: flex;
-    justify-content: flex-end;
-    margin: 20px 0;
-    
-}
-form .display input{
-    text-align: right;
-    flex: 1;
-    font-size: 45px;
-} */

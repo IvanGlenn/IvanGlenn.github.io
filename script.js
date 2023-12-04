@@ -37,7 +37,7 @@ class Calculator {
     chooseOperation(operation) {
         // Ensure a number was selected first
         // OR in the case of log/ln/exp/sin/cos/tan that we don't just override it with the return
-        if (this.currentNumber === '' && operation !== 'log' && operation !== 'ln' && operation !== 'sin' && operation !== 'cos' && operation !== 'tan') {
+        if (this.currentNumber === '' && operation !== 'log' && operation !== 'ln' && operation !== 'sin' && operation !== 'cos' && operation !== 'tan' && operation !== '-') {
             return
         }
         // Ensure there is a valid previous number to do something with
@@ -203,4 +203,21 @@ darkModeToggle.addEventListener('click', () => {
     else {
         disableDarkMode();
     }
+});
+
+// Get the existing button by its id
+var degreesButton = document.getElementById('button-degrees-radians');
+
+// Add a click event listener to the existing button
+degreesButton.addEventListener('click', function() {
+    // Create a new button element
+    var radiansButton = document.createElement('button');
+    
+    // Set the inner text of the new button
+    radiansButton.innerHTML = 'Radians';
+    
+    // Append the new button to the body of the document
+    let div = document.getElementById('admin');
+    div.append(radiansButton);
+    // document.getElementById("admin").appendChild(radiansButton);
 });
