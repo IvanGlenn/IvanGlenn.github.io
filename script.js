@@ -6,21 +6,22 @@ class Calculator {
     }
 // Clear the display
     clear() {
-        this.currentNumber = ''
-        this.prevNumber = ''
+        this.currNum = ''
+        this.prevNum = ''
         this.operation = undefined
         this.updateDisplay()
+        this.degrees = false;
     }
 // Delete the current number(s) on the display by slicing it
     delete() {
-        this.currentNumber = this.currentNumber.toString().slice(0, -1)
+        this.currNum = this.currNum.toString().slice(0, -1)
         this.updateDisplay()
     }
 
 // Add numbers to the display as we type them
-    appendNumber(number) {
+    addNumber(number) {
         // Prevent the user from adding multiple decimal points
-        if (number === '.' && this.currentNumber.includes('.')) {
+        if (number === '.' && this.currNum.includes('.')) {
             return
         }
         // Special case for pi
@@ -28,7 +29,7 @@ class Calculator {
             number = Math.PI;
         }
         // Add the previous number (still currentNumber) and new number together
-        this.currentNumber = this.currentNumber.toString() + number.toString()
+        this.currNum = this.currNum.toString() + number.toString()
         // Update the display
         this.updateDisplay()
     }
@@ -37,19 +38,19 @@ class Calculator {
     chooseOperation(operation) {
         // Ensure a number was selected first
         // OR in the case of log/ln/exp/sin/cos/tan that we don't just override it with the return
-        if (this.currentNumber === '' && operation !== 'log' && operation !== 'ln' && operation !== 'sin' && operation !== 'cos' && operation !== 'tan' && operation !== '-') {
+        if (this.currNum === '' && operation !== 'log' && operation !== 'ln' && operation !== 'sin' && operation !== 'cos' && operation !== 'tan' && operation !== '-') {
             return
         }
         // Ensure there is a valid previous number to do something with
         // OR in the case of log/ln/exp/sin/cos/tan that we still do the actual operation
-        if (this.prevNumber !== '' || this.operation === 'log' || this.operation === 'ln' || this.operation === 'sin' || this.operation === 'cos' || this.operation === 'tan') {
+        if (this.prevNum !== '' || this.operation === 'log' || this.operation === 'ln' || this.operation === 'sin' || this.operation === 'cos' || this.operation === 'tan') {
             // Compute the operation
             this.compute()
         }
         // This is admin to do with displaying things correctly
         this.operation = operation
-        this.prevNumber = this.currentNumber
-        this.currentNumber = ''
+        this.prevNum = this.currNum
+        this.currNum = ''
         this.updateDisplay()
     }
 
@@ -61,8 +62,8 @@ class Calculator {
         }
         let answer
         // Convert current and previous numbers from str to float
-        const prev = parseFloat(this.prevNumber)
-        const curr = parseFloat(this.currentNumber)
+        const prev = parseFloat(this.prevNum)
+        const curr = parseFloat(this.currNum)
         // Check if the user entered two separate numbers
         if ((isNaN(prev) || isNaN(curr)) && this.operation !== 'log' && this.operation !== 'ln' && this.operation !== 'sin' && this.operation !== 'cos' && this.operation !== 'tan') {
             return
@@ -92,7 +93,11 @@ class Calculator {
                 answer = prev ** curr
                 break;
             case 'sin':
-                answer = Math.sin(curr)
+                answer = Math.sin(curr);
+                if (this.degrees) {
+                    console.log('we are working in degrees')
+                    answer = answer * (180/Math.PI);
+                }
                 break;
             case 'cos':
                 answer = Math.cos(curr)
@@ -104,11 +109,11 @@ class Calculator {
                 return;
         }
         // Set current number to the answer
-        this.currentNumber = answer
+        this.currNum = answer
         // Reset the operation
         this.operation = undefined
         // Reset the previous number (because we have our answer now)
-        this.prevNumber = ''
+        this.prevNum = ''
         // Display the answer
         this.updateDisplay()
     }
@@ -118,14 +123,14 @@ class Calculator {
         // Check if an actual operation has been selected and add it to the previous number
         if (typeof this.operation !== 'undefined') {
             // Update the current number
-            this.currentNumberTextElement.innerText = this.currentNumber 
+            this.currentNumberTextElement.innerText = this.currNum 
             // Update the previous number with the selected operand
-            this.previousNumberTextElement.innerText = this.prevNumber + this.operation
+            this.previousNumberTextElement.innerText = this.prevNum + this.operation
         }
         else{
             // Else everyhting stays as it is
-            this.currentNumberTextElement.innerText = this.currentNumber 
-            this.previousNumberTextElement.innerText = this.prevNumber
+            this.currentNumberTextElement.innerText = this.currNum 
+            this.previousNumberTextElement.innerText = this.prevNum
         }
     }
 }
@@ -151,7 +156,7 @@ const calculator = new Calculator(previousOperandTextElement, currentOperandText
 // Add event listeners to every number button by looping through the numberButtons constant
 // The value of each number is pulled from the HTML element's inner text and is appropriately updated in calculater.appendNumber
 for (let index = 0; index < numberButtons.length; index++) {
-    numberButtons[index].addEventListener('click', () => { calculator.appendNumber(numberButtons[index].innerText) })
+    numberButtons[index].addEventListener('click', () => { calculator.addNumber(numberButtons[index].innerText) })
 }
 
 // Do the same for the operation buttons
@@ -207,17 +212,43 @@ darkModeToggle.addEventListener('click', () => {
 
 // Get the existing button by its id
 var degreesButton = document.getElementById('button-degrees-radians');
-
+const style = degreesButton.style.cssText;
 // Add a click event listener to the existing button
-degreesButton.addEventListener('click', function() {
+degreesButton.addEventListener('click', function () {
+
+    // let element = document.getElementById('button-radians')
+    // // Check if the radians button already exists
+    // if (document.getElementById('button-radians') !== null) {
+    //     console.log('Put code here to bring back the degrees button');
+    //     return;
+    // }
+
     // Create a new button element
     var radiansButton = document.createElement('button');
     
     // Set the inner text of the new button
     radiansButton.innerHTML = 'Radians';
+    radiansButton.id = 'button-radians';
+
+    // I don't know why this doesn't work
+    radiansButton.style.width = degreesButton.offsetWidth;
+    radiansButton.style.font = degreesButton.style.fontSize;
     
     // Append the new button to the body of the document
-    let div = document.getElementById('admin');
-    div.append(radiansButton);
-    // document.getElementById("admin").appendChild(radiansButton);
+    document.getElementById("admin").appendChild(radiansButton);
+    
+    // Hide the degrees button
+    degreesButton.style.visibility = 'hidden';
+
+    // Set the degrees flag to true
+    calculator.degrees = true;
+
+    radiansButton.addEventListener('click', function () {
+        // Show the degrees button
+        degreesButton.style.visibility = 'visible';
+        // Delete the radians button
+        document.getElementById("admin").removeChild(radiansButton);
+        // Set the degrees flag to false
+        calculator.degrees = false;
+    })
 });
