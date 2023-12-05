@@ -216,8 +216,8 @@ darkModeToggle.addEventListener('click', () => {
 });
 
 // Get the existing button by its id
-var degreesButton = document.getElementById('button-degrees-radians');
-// const style = degreesButton.style.cssText;
+var degreesButton = document.getElementById('button-degrees');
+
 // Add a click event listener to the existing button
 degreesButton.addEventListener('click', function () {
 
@@ -228,18 +228,13 @@ degreesButton.addEventListener('click', function () {
     radiansButton.innerText = 'Radians';
     radiansButton.id = 'button-radians';
     radiansButton.classList.add("settings-button");
-
-    // I don't know why this doesn't work
-    // radiansButton.style.width = '150px';//degreesButton.offsetWidth;
-    // radiansButton.style.height = '40px';
-    // radiansButton.style.font = degreesButton.style.font;
-    // radiansButton.style.fontSize = '27px';
     
     // Append the new button to the body of the document
     document.getElementById("admin").appendChild(radiansButton);
     
     // Hide the degrees button
     degreesButton.style.visibility = 'hidden';
+    degreesButton.disabled = true;
 
     // Set the degrees flag to true
     calculator.degrees = true;
@@ -247,6 +242,7 @@ degreesButton.addEventListener('click', function () {
     radiansButton.addEventListener('click', function () {
         // Show the degrees button
         degreesButton.style.visibility = 'visible';
+        degreesButton.disabled = false;
         // Delete the radians button
         document.getElementById("admin").removeChild(radiansButton);
         // Set the degrees flag to false

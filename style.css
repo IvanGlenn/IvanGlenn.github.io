@@ -8,7 +8,7 @@
 }
 /* Light mode will be the default and all relevant colour variables are defined under ":root" */
 :root {
-    --background: rgb(196, 195, 195); /* linear-gradient(to right, rgb(196, 195, 195), rgb(81, 88, 96)); */
+    --background: linear-gradient(to right, rgb(196, 195, 195), rgb(114, 132, 152));
     --clr-button: rgb(255, 255, 255);
     --clr-button-hover: rgba(223, 219, 219, 0.5);
     --clr-button-border: 1px solid rgb(95, 92, 92);
@@ -21,11 +21,11 @@
 
 /* Define dark mode colours here */
 .darkmode {
-    --background: rgb(77, 77, 77); /* linear-gradient(to right, rgb(0, 0, 0), rgb(77, 77, 77)); */
-    --clr-button: rgb(16, 12, 65);
+    --background: linear-gradient(to right, rgb(41, 41, 41), rgb(102, 102, 102));
+    --clr-button: rgb(9, 28, 71);
     --clr-button-hover: rgba(120, 120, 120, 0.5);
     --clr-button-border: 1px solid rgb(255, 255, 255);
-    --display-background: rgba(161, 161, 161, 0.65);
+    --display-background: rgba(206, 206, 206, 0.65);
     --clr-previous-number-display: rgb(255, 255, 255);
     --clr-current-number-display: rgb(0, 0, 0);
     --clr-toggle-darkmode: rgba(207, 207, 207, 0.5);
@@ -55,14 +55,15 @@ body{
  make a class out of this rather. */
 .calculator-grid > button {
 cursor: pointer;
-/* font-size: 150%; */
-font-size: 1em;
+/* Set the font size of the calculator buttons to the lesser of 3.5% the viewport widht/height */
+font-size: 3.5vmin;
 border: var(--clr-button-border);
 color: var(--clr-button-text);
 background-color: var(--clr-button);
 border-radius: 5px;
 /* word-wrap : break-word allows the text inside the button to wrap properly */
 word-wrap: break-word;
+box-shadow: 2px 2px 4px rgba(71, 71, 71, 0.2);
 }
 
 .calculatorx-grid > button:hover{
@@ -81,10 +82,12 @@ word-wrap: break-word;
     justify-content: space-around;
     flex-direction: column;
     padding: 10px;
+    /* Add word wrap in output display */
     word-wrap: break-word;
     word-break: break-all;
-    font-size: 35px;
+    font-size: 5vmin;
     border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Style the previous number inside the display */
@@ -96,17 +99,13 @@ word-wrap: break-word;
     color: var(--clr-current-number-display);
 }
 
-.admin {
-    /* padding: 10px; */
-}
-
 .settings-button {
     cursor: pointer;
-    font-size: 150%;
-    /* font-size: 1em; */
+    font-size: 3.5vmin;
     border: var(--clr-button-border);
     background-color: var(--clr-toggle-darkmode);
     padding: 1%;
-    /* width: 150px;
-    height: 40px; */
-}
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    word-wrap: break-word;
+}   
