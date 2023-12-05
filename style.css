@@ -39,13 +39,6 @@ body{
     background: var(--background);
 }
 
-.toggle-dark-mode{
-    cursor: pointer;
-    font-size: 175%;
-    border: var(--clr-button-border);
-    background-color: var(--clr-toggle-darkmode);
-    padding: 1%;
-}
 
 .calculator-grid{
     display: grid;
@@ -62,11 +55,14 @@ body{
  make a class out of this rather. */
 .calculator-grid > button {
 cursor: pointer;
-font-size: 150%;
+/* font-size: 150%; */
+font-size: 1em;
 border: var(--clr-button-border);
 color: var(--clr-button-text);
 background-color: var(--clr-button);
 border-radius: 5px;
+/* word-wrap : break-word allows the text inside the button to wrap properly */
+word-wrap: break-word;
 }
 
 .calculatorx-grid > button:hover{
@@ -88,6 +84,7 @@ border-radius: 5px;
     word-wrap: break-word;
     word-break: break-all;
     font-size: 35px;
+    border-radius: 10px;
 }
 
 /* Style the previous number inside the display */
@@ -97,4 +94,19 @@ border-radius: 5px;
 /* Style the current number inside the display */
 .output .current-number{
     color: var(--clr-current-number-display);
+}
+
+.admin {
+    /* padding: 10px; */
+}
+
+.settings-button {
+    cursor: pointer;
+    font-size: 150%;
+    /* font-size: 1em; */
+    border: var(--clr-button-border);
+    background-color: var(--clr-toggle-darkmode);
+    padding: 1%;
+    /* width: 150px;
+    height: 40px; */
 }

@@ -217,7 +217,7 @@ darkModeToggle.addEventListener('click', () => {
 
 // Get the existing button by its id
 var degreesButton = document.getElementById('button-degrees-radians');
-const style = degreesButton.style.cssText;
+// const style = degreesButton.style.cssText;
 // Add a click event listener to the existing button
 degreesButton.addEventListener('click', function () {
 
@@ -225,12 +225,15 @@ degreesButton.addEventListener('click', function () {
     var radiansButton = document.createElement('button');
     
     // Set the inner text of the new button
-    radiansButton.innerHTML = 'Radians';
+    radiansButton.innerText = 'Radians';
     radiansButton.id = 'button-radians';
+    radiansButton.classList.add("settings-button");
 
     // I don't know why this doesn't work
-    radiansButton.style.width = degreesButton.offsetWidth;
-    radiansButton.style.font = degreesButton.style.fontSize;
+    // radiansButton.style.width = '150px';//degreesButton.offsetWidth;
+    // radiansButton.style.height = '40px';
+    // radiansButton.style.font = degreesButton.style.font;
+    // radiansButton.style.fontSize = '27px';
     
     // Append the new button to the body of the document
     document.getElementById("admin").appendChild(radiansButton);
