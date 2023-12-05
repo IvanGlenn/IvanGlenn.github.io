@@ -60,6 +60,7 @@ class Calculator {
             console.log('Operand is undefined')
             return
         }
+        // Declare the variable to store our answer in
         let answer
         // Convert current and previous numbers from str to float
         const prev = parseFloat(this.prevNum)
@@ -68,7 +69,6 @@ class Calculator {
         if ((isNaN(prev) || isNaN(curr)) && this.operation !== 'log' && this.operation !== 'ln' && this.operation !== 'sin' && this.operation !== 'cos' && this.operation !== 'tan') {
             return
         }
-
         // Do the actual mathematical operation here to get our answer
         switch (this.operation) {
             case '+':
@@ -95,15 +95,20 @@ class Calculator {
             case 'sin':
                 answer = Math.sin(curr);
                 if (this.degrees) {
-                    console.log('we are working in degrees')
                     answer = answer * (180/Math.PI);
                 }
                 break;
             case 'cos':
-                answer = Math.cos(curr)
+                answer = Math.cos(curr);
+                if (this.degrees) {
+                    answer = answer * (180/Math.PI);
+                }
                 break;
             case 'tan':
-                answer = Math.tan(curr)
+                answer = Math.tan(curr);
+                if (this.degrees) {
+                    answer = answer * (180/Math.PI);
+                }
                 break;
             default:
                 return;
