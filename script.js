@@ -1,21 +1,21 @@
 class Calculator {
     constructor(previousOperandTextElement, currentOperandTextElement) {
-        this.previousNumberTextElement = previousOperandTextElement
-        this.currentNumberTextElement = currentOperandTextElement
-        this.clear()
+        this.previousNumberTextElement = previousOperandTextElement;
+        this.currentNumberTextElement = currentOperandTextElement;
+        this.clear();
     }
 // Clear the display
     clear() {
-        this.currNum = ''
-        this.prevNum = ''
-        this.operation = undefined
-        this.updateDisplay()
+        this.currNum = '';
+        this.prevNum = '';
+        this.operation = undefined;
+        this.updateDisplay();
         this.degrees = false;
     }
 // Delete the current number(s) on the display by slicing it
     delete() {
-        this.currNum = this.currNum.toString().slice(0, -1)
-        this.updateDisplay()
+        this.currNum = this.currNum.toString().slice(0, -1);
+        this.updateDisplay();
     }
 
 // Add numbers to the display as we type them
@@ -29,9 +29,9 @@ class Calculator {
             number = Math.PI;
         }
         // Add the previous number (still currentNumber) and new number together
-        this.currNum = this.currNum.toString() + number.toString()
+        this.currNum = this.currNum.toString() + number.toString();
         // Update the display
-        this.updateDisplay()
+        this.updateDisplay();
     }
 
     // Sets which mathematical operation should be used
@@ -45,26 +45,26 @@ class Calculator {
         // OR in the case of log/ln/exp/sin/cos/tan that we still do the actual operation
         if (this.prevNum !== '' || this.operation === 'log' || this.operation === 'ln' || this.operation === 'sin' || this.operation === 'cos' || this.operation === 'tan') {
             // Compute the operation
-            this.compute()
+            this.compute();
         }
         // This is admin to do with displaying things correctly
-        this.operation = operation
-        this.prevNum = this.currNum
-        this.currNum = ''
-        this.updateDisplay()
+        this.operation = operation;
+        this.prevNum = this.currNum;
+        this.currNum = '';
+        this.updateDisplay();
     }
 
     compute() {
         // Check if an operation was selected
         if (typeof this.operation === 'undefined') {
-            console.log('Operand is undefined')
+            console.log('Operand is undefined');
             return
         }
         // Declare the variable to store our answer in
-        let answer
+        let answer;
         // Convert current and previous numbers from str to float
-        const prev = parseFloat(this.prevNum)
-        const curr = parseFloat(this.currNum)
+        const prev = parseFloat(this.prevNum);
+        const curr = parseFloat(this.currNum);
         // Check if the user entered two separate numbers
         if ((isNaN(prev) || isNaN(curr)) && this.operation !== 'log' && this.operation !== 'ln' && this.operation !== 'sin' && this.operation !== 'cos' && this.operation !== 'tan') {
             return
@@ -72,25 +72,25 @@ class Calculator {
         // Do the actual mathematical operation here to get our answer
         switch (this.operation) {
             case '+':
-                answer = prev + curr
+                answer = prev + curr;
                 break;
             case '-':
-                answer = prev - curr
+                answer = prev - curr;
                 break;
             case 'x':
-                answer = prev * curr
+                answer = prev * curr;
                 break;
             case '÷':
-                answer = prev / curr
+                answer = prev / curr;
                 break;
             case 'log':
-                answer = Math.log(curr) / Math.log(10)
+                answer = Math.log(curr) / Math.log(10);
                 break;
             case 'ln':
-                answer = Math.log(curr)
+                answer = Math.log(curr);
                 break;
             case 'exp':
-                answer = prev ** curr
+                answer = prev ** curr;
                 break;
             case 'sin':
                 answer = Math.sin(curr);
@@ -114,13 +114,13 @@ class Calculator {
                 return;
         }
         // Set current number to the answer
-        this.currNum = answer
+        this.currNum = answer;
         // Reset the operation
-        this.operation = undefined
+        this.operation = undefined;
         // Reset the previous number (because we have our answer now)
-        this.prevNum = ''
+        this.prevNum = '';
         // Display the answer
-        this.updateDisplay()
+        this.updateDisplay();
     }
 
     // Admin code to display the current, previous numbers correctly as well as the operation
@@ -128,45 +128,45 @@ class Calculator {
         // Check if an actual operation has been selected and add it to the previous number
         if (typeof this.operation !== 'undefined') {
             // Update the current number
-            this.currentNumberTextElement.innerText = this.currNum 
+            this.currentNumberTextElement.innerText = this.currNum ;
             // Update the previous number with the selected operand
-            this.previousNumberTextElement.innerText = this.prevNum + this.operation
+            this.previousNumberTextElement.innerText = this.prevNum + this.operation;
         }
         else{
             // Else everyhting stays as it is
-            this.currentNumberTextElement.innerText = this.currNum 
-            this.previousNumberTextElement.innerText = this.prevNum
+            this.currentNumberTextElement.innerText = this.currNum;
+            this.previousNumberTextElement.innerText = this.prevNum;
         }
     }
 }
 
 // Declare constants that hold the number, operation, and equals buttons
-const numberButtons = document.querySelectorAll('[data-number]')
-const operationButtons = document.querySelectorAll('[data-operation]')
-const equalsButton = document.querySelector('[data-equals]')
+const numberButtons = document.querySelectorAll('[data-number]');
+const operationButtons = document.querySelectorAll('[data-operation]');
+const equalsButton = document.querySelector('[data-equals]');
 // Add an event listener to the equals button so that we know when to compute the operation
 // The arrow function calls the calculator class's compute() function
-equalsButton.addEventListener('click', () => { calculator.compute() })
+equalsButton.addEventListener('click', () => { calculator.compute() });
 // Declare a constant and click event listener for the delete button
-const deleteButton = document.querySelector('[data-delete]')
-deleteButton.addEventListener('click', () => {calculator.delete()})
-const allClearButton = document.querySelector('[data-all-clear]')
-allClearButton.addEventListener('click', () => { calculator.clear() })
-const previousOperandTextElement = document.querySelector('[data-previous-operand]')
-const currentOperandTextElement = document.querySelector('[data-current-operand]')
+const deleteButton = document.querySelector('[data-delete]');
+deleteButton.addEventListener('click', () => {calculator.delete()});
+const allClearButton = document.querySelector('[data-all-clear]');
+allClearButton.addEventListener('click', () => { calculator.clear() });
+const previousOperandTextElement = document.querySelector('[data-previous-operand]');
+const currentOperandTextElement = document.querySelector('[data-current-operand]');
 
 // Create a new calculator object with default initial values
-const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
+const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement);
 
 // Add event listeners to every number button by looping through the numberButtons constant
 // The value of each number is pulled from the HTML element's inner text and is appropriately updated in calculater.appendNumber
 for (let index = 0; index < numberButtons.length; index++) {
-    numberButtons[index].addEventListener('click', () => { calculator.addNumber(numberButtons[index].innerText) })
+    numberButtons[index].addEventListener('click', () => { calculator.addNumber(numberButtons[index].innerText) });
 }
 
 // Do the same for the operation buttons
 for (let index = 0; index < operationButtons.length; index++) {
-    operationButtons[index].addEventListener('click', () => { calculator.chooseOperation(operationButtons[index].innerText) })
+    operationButtons[index].addEventListener('click', () => { calculator.chooseOperation(operationButtons[index].innerText) });
 }
 
 
@@ -220,13 +220,6 @@ var degreesButton = document.getElementById('button-degrees-radians');
 const style = degreesButton.style.cssText;
 // Add a click event listener to the existing button
 degreesButton.addEventListener('click', function () {
-
-    // let element = document.getElementById('button-radians')
-    // // Check if the radians button already exists
-    // if (document.getElementById('button-radians') !== null) {
-    //     console.log('Put code here to bring back the degrees button');
-    //     return;
-    // }
 
     // Create a new button element
     var radiansButton = document.createElement('button');
